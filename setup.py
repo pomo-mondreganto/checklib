@@ -9,14 +9,13 @@ setup(
     author='Roman Nikitin',
     author_email='nikrom.prog@gmail.com',
     url='https://github.com/pomo-mondreganto/',
-    download_url='https://github.com/user/reponame/archive/v_01.tar.gz',
+    download_url='https://github.com/pomo-mondreganto/checklib/archive/v_0.1.tar.gz',
     keywords=['AD', 'CTF', 'checker'],
     install_requires=[
         'requests',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers'
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.6',
