@@ -1,8 +1,10 @@
 from checklib.assertions import (
     assert_eq,
+    assert_neq,
     assert_gt,
     assert_gte,
     assert_in,
+    assert_nin,
     assert_in_list_dicts,
 )
 
