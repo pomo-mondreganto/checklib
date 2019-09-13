@@ -29,4 +29,5 @@ from checklib.status import (
 
 from checklib.utils import (
     cquit,
+    handle_exception,
 )
