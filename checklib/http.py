@@ -17,7 +17,7 @@ def get_text(r, public, status=checklib.status.Status.MUMBLE):
     try:
         data = r.text
     except UnicodeDecodeError:
-        utils.cquit(status, public, f'Invalid json on {r.url}')
+        utils.cquit(status, public, f'Unable to decode text from {r.url}')
     else:
         return data
 
