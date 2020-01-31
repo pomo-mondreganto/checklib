@@ -5,7 +5,7 @@ class CheckFinished(Exception):
     pass
 
 
-class Checker:
+class BaseChecker:
     def __init__(self, host):
         checklib.cquit = self.cquit
         self.host = host
@@ -26,13 +26,13 @@ class Checker:
             return self.get(*args, **kwargs)
 
     def check(self, *_args, **_kwargs):
-        raise NotImplemented
+        raise NotImplementedError('You must implement this method')
 
     def put(self, *_args, **_kwargs):
-        raise NotImplemented
+        raise NotImplementedError('You must implement this method')
 
     def get(self, *_args, **_kwargs):
-        raise NotImplemented
+        raise NotImplementedError('You must implement this method')
 
     def cquit(self, status, public='', private=None):
         if private is None:

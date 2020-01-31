@@ -13,7 +13,7 @@ private checker information to checker
 - `handle_exception` context manager to handle block exceptions and `cquit` on failure
 - `check_response`, `get_text` and `get_json` functions to validate `requests` responses
 - `get_initialized_session` function to get `requests` session with random user agent
-- `Checker` class for `gevent_optimized` checkers in `ForcAD`
+- `BaseChecker` class for `gevent_optimized` checkers in `ForcAD`
 
 Pull requests are gladly accepted.
 
