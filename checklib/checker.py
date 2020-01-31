@@ -5,9 +5,16 @@ class CheckFinished(Exception):
     pass
 
 
-class BaseChecker:
+class BaseChecker(object):
+    obj = None
+
+    # cquit uses BaseChecker.obj to determine exit protocol
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, 'obj') or cls.obj is None:
+            cls.obj = super(BaseChecker, cls).__new__(cls)
+        return cls.obj
+
     def __init__(self, host):
-        checklib.cquit = self.cquit
         self.host = host
         self.status = checklib.Status.OK
         self.public = ''
