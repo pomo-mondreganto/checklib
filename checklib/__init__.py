@@ -31,3 +31,7 @@ from checklib.utils import (
     cquit,
     handle_exception,
 )
+
+from checklib.checker import (
+    Checker,
+)
