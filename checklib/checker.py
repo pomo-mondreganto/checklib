@@ -1,4 +1,3 @@
-import requests
 import checklib
 
 
@@ -18,24 +17,21 @@ class Checker:
     def get_check_finished_exception():
         return CheckFinished
 
-    def action(self, action, *_args, **_kwargs):
-        try:
-            if action == 'check':
-                return self.check()
-            elif action == 'put':
-                return self.put()
-            else:
-                return self.get()
-        except requests.exceptions.ConnectionError:
-            self.cquit(checklib.Status.DOWN, 'Connection error', 'Got requests connection error')
+    def action(self, action, *args, **kwargs):
+        if action == 'check':
+            return self.check(*args, **kwargs)
+        elif action == 'put':
+            return self.put(*args, **kwargs)
+        else:
+            return self.get(*args, **kwargs)
 
-    def check(self):
+    def check(self, *_args, **_kwargs):
         raise NotImplemented
 
-    def put(self):
+    def put(self, *_args, **_kwargs):
         raise NotImplemented
 
-    def get(self):
+    def get(self, *_args, **_kwargs):
         raise NotImplemented
 
     def cquit(self, status, public='', private=None):
