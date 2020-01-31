@@ -8,13 +8,11 @@ class CheckFinished(Exception):
 class BaseChecker(object):
     obj = None
 
-    # cquit uses BaseChecker.obj to determine exit protocol
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, 'obj') or cls.obj is None:
-            cls.obj = super(BaseChecker, cls).__new__(cls)
-        return cls.obj
-
     def __init__(self, host):
+        # cquit uses BaseChecker.obj to determine exit protocol
+        # don't use two BaseCheckers in one namespace!
+        BaseChecker.obj = self
+
         self.host = host
         self.status = checklib.Status.OK
         self.public = ''
