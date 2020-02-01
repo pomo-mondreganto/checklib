@@ -5,14 +5,10 @@ class CheckFinished(Exception):
     pass
 
 
-class BaseChecker(object):
+class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.CheckerHttpHelpersMixin):
     obj = None
 
     def __init__(self, host):
-        # cquit uses BaseChecker.obj to determine exit protocol
-        # don't use two BaseCheckers in one namespace!
-        BaseChecker.obj = self
-
         self.host = host
         self.status = checklib.Status.OK.value
         self.public = ''
