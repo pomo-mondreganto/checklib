@@ -4,17 +4,9 @@ from contextlib import contextmanager
 import checklib
 
 
-def cquit(status, public='', private=None, *args, **kwargs):
+def cquit(status, public='', private=None):
     if private is None:
         private = public
-
-    if checklib.checker.BaseChecker.obj is not None:
-        return checklib.checker.BaseChecker.obj.cquit(
-            status=status,
-            public=public,
-            private=private,
-            *args, **kwargs,
-        )
 
     print(public, file=sys.stdout)
     print(private, file=sys.stderr)
