@@ -1,4 +1,6 @@
-import checklib
+import checklib.assertions
+import checklib.http
+import checklib.status
 
 
 class CheckFinished(Exception):
@@ -10,7 +12,7 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
 
     def __init__(self, host):
         self.host = host
-        self.status = checklib.Status.OK.value
+        self.status = checklib.status.Status.OK.value
         self.public = ''
         self.private = ''
 
