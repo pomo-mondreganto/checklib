@@ -14,7 +14,7 @@ class BaseChecker(object):
         BaseChecker.obj = self
 
         self.host = host
-        self.status = checklib.Status.OK
+        self.status = checklib.Status.OK.value
         self.public = ''
         self.private = ''
 
@@ -43,7 +43,7 @@ class BaseChecker(object):
         if private is None:
             private = public
 
-        self.status = status
+        self.status = status.value
         self.public = public
         self.private = private
 
