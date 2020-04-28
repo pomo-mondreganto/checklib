@@ -22,11 +22,11 @@ def get_text(r, public, status=checklib.status.Status.MUMBLE):
         return data
 
 
-def check_response(r, public):
+def check_response(r, public, status=checklib.status.Status.MUMBLE):
     if r.status_code >= 500:
         utils.cquit(checklib.status.Status.DOWN, public, f'Code {r.status_code} on {r.url}')
     if not r.ok:
-        utils.cquit(checklib.status.Status.MUMBLE, public, f'Error on {r.url}: {r.status_code}')
+        utils.cquit(status, public, f'Error on {r.url}: {r.status_code}')
 
 
 class CheckerHttpHelpersMixin:
@@ -46,11 +46,11 @@ class CheckerHttpHelpersMixin:
         else:
             return data
 
-    def check_response(self, r, public):
+    def check_response(self, r, public, status=checklib.status.Status.MUMBLE):
         if r.status_code >= 500:
             self.cquit(checklib.status.Status.DOWN, public, f'Code {r.status_code} on {r.url}')
         if not r.ok:
-            self.cquit(checklib.status.Status.MUMBLE, public, f'Error on {r.url}: {r.status_code}')
+            self.cquit(status, public, f'Error on {r.url}: {r.status_code}')
 
     def cquit(self, *_args, **_kwargs):
         raise NotImplementedError
