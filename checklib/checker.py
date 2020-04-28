@@ -25,8 +25,10 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
             return self.check(*args, **kwargs)
         elif action == 'put':
             return self.put(*args, **kwargs)
-        else:
+        elif action == 'get':
             return self.get(*args, **kwargs)
+        else:
+            self.cquit(checklib.status.Status.ERROR, 'Checker failed', f'Invalid action: {action}')
 
     def check(self, *_args, **_kwargs):
         raise NotImplementedError('You must implement this method')

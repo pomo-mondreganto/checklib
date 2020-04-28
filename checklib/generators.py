@@ -1,6 +1,7 @@
 import os
 import secrets
 import string
+
 import requests
 
 import checklib.internal as internal
@@ -22,12 +23,12 @@ def rnd_string(length, alphabet=None):
     return ''.join(secrets.choice(alphabet) for _ in range(length))
 
 
-def rnd_username():
-    return secrets.choice(usernames_db) + rnd_string(5)
+def rnd_username(salt=5):
+    return secrets.choice(usernames_db) + rnd_string(salt)
 
 
-def rnd_password():
-    return rnd_string(20)
+def rnd_password(l=20):
+    return rnd_string(l)
 
 
 def rnd_useragent():
