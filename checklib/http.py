@@ -31,9 +31,14 @@ def check_response(r, public, status=checklib.status.Status.MUMBLE):
 
 class CheckerHttpHelpersMixin:
     def get_json(self, r, public, status=checklib.status.Status.MUMBLE):
+        json_errors = (
+            UnicodeDecodeError,
+            json.decoder.JSONDecodeError,
+            ValueError,
+        )
         try:
             data = r.json()
-        except (UnicodeDecodeError, json.decoder.JSONDecodeError):
+        except json_errors:
             self.cquit(status, public, f'Invalid json on {r.url}')
         else:
             return data
