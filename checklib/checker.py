@@ -25,7 +25,7 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
     def action(self, action, *args, **kwargs):
         if action == 'info':
             return self.info(*args, **kwargs)
-        if action == 'check':
+        elif action == 'check':
             return self.check(*args, **kwargs)
         elif action == 'put':
             return self.put(*args, **kwargs)
