@@ -1,10 +1,11 @@
 import sys
+import typing
 from contextlib import contextmanager
 
 import checklib
 
 
-def cquit(status, public='', private=None):
+def cquit(status: checklib.status.Status, public: str = '', private: typing.Optional[str] = None):
     if private is None:
         private = public
 
@@ -15,7 +16,7 @@ def cquit(status, public='', private=None):
 
 
 @contextmanager
-def handle_exception(exc, public, private, status=checklib.status.Status.MUMBLE):
+def handle_exception(exc, public: str, private: str, status: checklib.status.Status = checklib.status.Status.MUMBLE):
     try:
         yield True
     except SystemError:

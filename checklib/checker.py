@@ -1,3 +1,8 @@
+import json
+import typing
+
+import requests
+
 import checklib.assertions
 import checklib.generators
 import checklib.http
@@ -9,14 +14,18 @@ class CheckFinished(Exception):
 
 
 class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.CheckerHttpHelpersMixin):
-    obj = None
+    gets_count: int = 1
+    puts_count: int = 1
+    vulns: int = 1
+    timeout: int = 10
+    uses_attack_data: bool = False
 
-    def __init__(self, host):
-        self.host = host
-        self.status = checklib.status.Status.OK.value
-        self.public = ''
-        self.private = ''
-        self._sessions = []
+    def __init__(self, host: str):
+        self.host: str = host
+        self.status: str = checklib.status.Status.OK.value
+        self.public: str = ''
+        self.private: str = ''
+        self._sessions: typing.List[requests.Session] = []
 
     @staticmethod
     def get_check_finished_exception():
@@ -35,7 +44,14 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
             self.cquit(checklib.status.Status.ERROR, 'Checker failed', f'Invalid action: {action}')
 
     def info(self, *_args, **_kwargs):
-        raise NotImplementedError('You must implement this method')
+        data = {
+            'gets': self.gets_count,
+            'puts': self.puts_count,
+            'vulns': self.vulns,
+            'timeout': self.timeout,
+            'attack_data': self.uses_attack_data,
+        }
+        self.cquit(checklib.status.Status.OK, json.dumps(data))
 
     def check(self, *_args, **_kwargs):
         raise NotImplementedError('You must implement this method')
@@ -46,12 +62,12 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
     def get(self, *_args, **_kwargs):
         raise NotImplementedError('You must implement this method')
 
-    def get_initialized_session(self):
+    def get_initialized_session(self) -> requests.Session:
         sess = checklib.generators.get_initialized_session()
         self._sessions.append(sess)
         return sess
 
-    def cquit(self, status, public='', private=None):
+    def cquit(self, status: checklib.status.Status, public: str = '', private: typing.Optional[str] = None):
         if private is None:
             private = public
 
