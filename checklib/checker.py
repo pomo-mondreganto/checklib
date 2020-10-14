@@ -14,8 +14,6 @@ class CheckFinished(Exception):
 
 
 class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.CheckerHttpHelpersMixin):
-    gets_count: int = 1
-    puts_count: int = 1
     vulns: int = 1
     timeout: int = 10
     uses_attack_data: bool = False
@@ -45,8 +43,6 @@ class BaseChecker(checklib.assertions.CheckerAssertionsMixin, checklib.http.Chec
 
     def info(self, *_args, **_kwargs):
         data = {
-            'gets': self.gets_count,
-            'puts': self.puts_count,
             'vulns': self.vulns,
             'timeout': self.timeout,
             'attack_data': self.uses_attack_data,
