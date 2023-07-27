@@ -38,3 +38,9 @@ from checklib.utils import (
     cquit,
     handle_exception,
 )
+from checklib.requirements import (
+    assert_command_executed,
+    assert_pip_packages_installed,
+    assert_sage_pip_packages_installed,
+    assert_apt_packages_installed,
+)
